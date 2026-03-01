@@ -1,0 +1,248 @@
+import { useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { SiPaytm, SiPhonepe, SiAmazon } from "react-icons/si";
+import { FaCheckCircle } from "react-icons/fa";
+
+const Payment = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const booking = location.state?.booking;
+  const mode = location.state?.mode;
+
+  const [method, setMethod] = useState("");
+  const [upiId, setUpiId] = useState("");
+  const [wallet, setWallet] = useState("");
+  const [card, setCard] = useState({
+    number: "",
+    name: "",
+    expiry: "",
+    cvv: "",
+  });
+
+  const [paymentSuccess, setPaymentSuccess] = useState(false);
+
+  if (!booking) {
+    return (
+      <div className="p-10 text-center text-gray-700">
+        No booking details found.
+      </div>
+    );
+  }
+
+  const price =
+    mode === "HOURLY"
+      ? `₹${booking.hourly} / hr`
+      : `₹${booking.monthly} / month`;
+
+  const handlePay = () => {
+    if (!method) {
+      alert("Please select a payment method");
+      return;
+    }
+
+    // UI-only success
+    setPaymentSuccess(true);
+  };
+
+  /* =======================
+     PAYMENT SUCCESS SCREEN
+     ======================= */
+  if (paymentSuccess) {
+    return (
+      <div className="min-h-[70vh] flex items-center justify-center">
+        <div className="bg-white rounded-2xl p-10 shadow-xl text-center space-y-6">
+
+          <FaCheckCircle className="text-green-600 text-6xl mx-auto" />
+
+          <h2 className="text-2xl font-bold text-gray-900">
+            Payment Successful
+          </h2>
+
+          <p className="text-gray-600">
+            Your parking has been booked successfully.
+          </p>
+
+          <button
+            onClick={() =>
+              navigate("/my-booking", {
+                state: {
+                  newBooking: {
+                    ...booking,
+                    mode,
+                    paymentMethod: method,
+                    wallet,
+                    status: "Active",
+                  },
+                },
+              })
+            }
+            className="mt-4 px-6 py-3 bg-green-600 hover:bg-green-700 
+                       text-white rounded-lg"
+          >
+            View Booking Details
+          </button>
+
+        </div>
+      </div>
+    );
+  }
+
+  /* =======================
+     PAYMENT FORM
+     ======================= */
+  return (
+    <div className="pb-24">
+      <div className="max-w-3xl mx-auto bg-white/95 backdrop-blur-md 
+                      rounded-2xl p-8 shadow-xl space-y-8">
+
+        {/* HEADER */}
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900">Payment</h1>
+          <p className="text-gray-600">
+            Complete your payment to confirm booking.
+          </p>
+        </div>
+
+        {/* BOOKING DETAILS */}
+        <div className="border rounded-xl p-6 text-gray-700 space-y-2">
+          <p><strong>Location:</strong> {booking.name}</p>
+          <p><strong>Address:</strong> {booking.address}</p>
+          <p><strong>Plan:</strong> {mode === "HOURLY" ? "Hourly" : "Monthly"}</p>
+          <p className="text-green-600 font-semibold text-lg">{price}</p>
+        </div>
+
+        {/* PAYMENT METHODS */}
+        <div className="space-y-4">
+          <h2 className="font-semibold text-gray-900">
+            Select Payment Method
+          </h2>
+
+          {/* UPI */}
+          <label className="block border rounded-lg p-4 cursor-pointer text-black">
+            <input
+              type="radio"
+              name="payment"
+              onChange={() => setMethod("UPI")}
+            />{" "}
+            UPI
+          </label>
+
+          {method === "UPI" && (
+            <input
+              type="text"
+              placeholder="Enter UPI ID"
+              value={upiId}
+              onChange={(e) => setUpiId(e.target.value)}
+              className="w-full border rounded-lg px-4 py-2 text-black"
+            />
+          )}
+
+          {/* CARD */}
+          <label className="block border rounded-lg p-4 cursor-pointer text-black">
+            <input
+              type="radio"
+              name="payment"
+              onChange={() => setMethod("CARD")}
+            />{" "}
+            Debit / Credit Card
+          </label>
+
+          {method === "CARD" && (
+            <div className="grid grid-cols-2 gap-4 text-black">
+              <input
+                placeholder="Card Number"
+                className="border rounded-lg px-4 py-2 col-span-2 text-black"
+                value={card.number}
+                onChange={(e) =>
+                  setCard({ ...card, number: e.target.value })
+                }
+              />
+              <input
+                placeholder="Name on Card"
+                className="border rounded-lg px-4 py-2 col-span-2 text-black"
+                value={card.name}
+                onChange={(e) =>
+                  setCard({ ...card, name: e.target.value })
+                }
+              />
+              <input
+                placeholder="MM/YY"
+                className="border rounded-lg px-4 py-2 text-black"
+                value={card.expiry}
+                onChange={(e) =>
+                  setCard({ ...card, expiry: e.target.value })
+                }
+              />
+              <input
+                placeholder="CVV"
+                className="border rounded-lg px-4 py-2 text-black"
+                value={card.cvv}
+                onChange={(e) =>
+                  setCard({ ...card, cvv: e.target.value })
+                }
+              />
+            </div>
+          )}
+
+          {/* WALLET */}
+          <label className="block border rounded-lg p-4 cursor-pointer text-black">
+            <input
+              type="radio"
+              name="payment"
+              onChange={() => setMethod("WALLET")}
+            />{" "}
+            Wallet
+          </label>
+
+          {method === "WALLET" && (
+            <div className="space-y-2 text-black">
+              <button
+                onClick={() => setWallet("Paytm")}
+                className="w-full flex items-center gap-3 border rounded-lg px-4 py-2 text-black"
+              >
+                <SiPaytm className="text-blue-600 text-xl" /> Paytm
+              </button>
+
+              <button
+                onClick={() => setWallet("PhonePe")}
+                className="w-full flex items-center gap-3 border rounded-lg px-4 py-2 text-black"
+              >
+                <SiPhonepe className="text-purple-600 text-xl" /> PhonePe
+              </button>
+
+              <button
+                onClick={() => setWallet("Amazon Pay")}
+                className="w-full flex items-center gap-3 border rounded-lg px-4 py-2 text-black"
+              >
+                <SiAmazon className="text-yellow-600 text-xl" /> Amazon Pay
+              </button>
+            </div>
+          )}
+        </div>
+
+        {/* ACTIONS */}
+        <div className="flex gap-4 text-black">
+          <button
+            onClick={() => navigate(-1)}
+            className="flex-1 bg-gray-100 hover:bg-gray-200 
+                       text-gray-700 py-2 rounded-lg"
+          >
+            Back
+          </button>
+
+          <button
+            onClick={handlePay}
+            className="flex-1 bg-green-600 hover:bg-green-700 
+                       text-white py-2 rounded-lg"
+          >
+            Pay & Confirm
+          </button>
+        </div>
+
+      </div>
+    </div>
+  );
+};
+
+export default Payment;
