@@ -1,12 +1,12 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { ArrowLeft, CheckCircle, ParkingCircle } from 'lucide-react';
-import Input from '../components/ui/Input';
-import Button from '../components/ui/Button';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { ArrowLeft, CheckCircle, ParkingCircle } from "lucide-react";
+import Input from "../components/ui/Input";
+import Button from "../components/ui/Button";
 
 export default function ForgotPassword() {
-  const [email, setEmail] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
@@ -18,7 +18,7 @@ export default function ForgotPassword() {
   const handleChange = (e) => {
     setEmail(e.target.value);
     if (error) {
-      setError('');
+      setError("");
     }
   };
 
@@ -26,18 +26,18 @@ export default function ForgotPassword() {
     e.preventDefault();
 
     if (!email) {
-      setError('Email is required');
+      setError("Email is required");
       return;
     }
 
     if (!validateEmail(email)) {
-      setError('Please enter a valid email address');
+      setError("Please enter a valid email address");
       return;
     }
 
     setIsSubmitting(true);
     setTimeout(() => {
-      console.log('Password reset requested for:', email);
+      console.log("Password reset requested for:", email);
       setIsSubmitting(false);
       setIsSuccess(true);
     }, 1000);
@@ -65,8 +65,12 @@ export default function ForgotPassword() {
             <div className="w-8 h-8 rounded-full bg-emerald-500"></div>
           </div>
           <div className="flex flex-col">
-            <span className="text-4xl font-extrabold text-white tracking-wide leading-none">PARK</span>
-            <span className="text-4xl font-light text-white tracking-[0.35em] leading-none">SMART</span>
+            <span className="text-4xl font-extrabold text-white tracking-wide leading-none">
+              PARK
+            </span>
+            <span className="text-4xl font-light text-white tracking-[0.35em] leading-none">
+              SMART
+            </span>
           </div>
         </div>
       </div>
@@ -82,8 +86,12 @@ export default function ForgotPassword() {
                 <div className="w-5.5 h-5.5 rounded-full bg-emerald-500"></div>
               </div>
               <div className="flex flex-col items-start">
-                <span className="text-2xl font-black text-gray-800 tracking-wider leading-none">PARK</span>
-                <span className="text-2xl font-light text-gray-800 tracking-[0.3em] leading-none">SMART</span>
+                <span className="text-2xl font-black text-gray-800 tracking-wider leading-none">
+                  PARK
+                </span>
+                <span className="text-2xl font-light text-gray-800 tracking-[0.3em] leading-none">
+                  SMART
+                </span>
               </div>
             </div>
 
@@ -91,13 +99,18 @@ export default function ForgotPassword() {
               to="/login"
               className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-6 transition-colors group"
             >
-              <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
+              <ArrowLeft
+                size={20}
+                className="group-hover:-translate-x-1 transition-transform"
+              />
               <span className="font-medium">Back to Login</span>
             </Link>
 
             {!isSuccess ? (
               <>
-                <h2 className="text-3xl font-bold text-gray-900 mb-2">Forgot Password?</h2>
+                <h2 className="text-3xl font-bold text-gray-900 mb-2">
+                  Forgot Password?
+                </h2>
                 <p className="text-gray-600 mb-8">
                   No worries, we'll send you reset instructions
                 </p>
@@ -120,7 +133,7 @@ export default function ForgotPassword() {
                     disabled={!isFormValid || isSubmitting}
                     className="mt-6"
                   >
-                    {isSubmitting ? 'Sending...' : 'Reset Password'}
+                    {isSubmitting ? "Sending..." : "Reset Password"}
                   </Button>
                 </form>
               </>
@@ -129,7 +142,9 @@ export default function ForgotPassword() {
                 <div className="inline-flex items-center justify-center w-16 h-16 bg-emerald-100 rounded-full mb-4">
                   <CheckCircle size={32} className="text-emerald-600" />
                 </div>
-                <h2 className="text-3xl font-bold text-gray-900 mb-2">Check your email</h2>
+                <h2 className="text-3xl font-bold text-gray-900 mb-2">
+                  Check your email
+                </h2>
                 <p className="text-gray-600 mb-8">
                   We sent a password reset link to <br />
                   <span className="font-semibold text-gray-900">{email}</span>

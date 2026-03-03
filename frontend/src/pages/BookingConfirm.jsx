@@ -1,70 +1,89 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import QRCode from "react-qr-code";
 
 const BookingConfirm = () => {
-  const { state } = useLocation();
+  const location = useLocation();
   const navigate = useNavigate();
 
-  if (!state) {
+  const booking = location.state;
+
+  // If user refreshes page or no state found
+  if (!booking) {
     return (
-      <div className="pb-24 flex justify-center">
-        <div className="bg-white rounded-xl p-8 shadow-xl text-center text-gray-700">
-          <p>No booking data found.</p>
-          <button
-            onClick={() => navigate("/my-booking")}
-            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg"
-          >
-            Go to My Bookings
-          </button>
-        </div>
+      <div className="p-10 text-center">
+        <h2 className="text-2xl font-semibold text-red-600">
+          No Booking Data Found
+        </h2>
+        <button
+          onClick={() => navigate("/my-bookings")}
+          className="mt-4 px-4 py-2 bg-black text-white rounded-lg"
+        >
+          Back to My Bookings
+        </button>
       </div>
     );
   }
 
   return (
-    <div className="pb-24 flex justify-center">
-      <div className="bg-white rounded-2xl p-8 shadow-xl max-w-xl w-full space-y-6 text-gray-900">
-        <h1 className="text-2xl font-bold text-green-600">Booking Details</h1>
+    <div className="min-h-screen flex justify-center items-center bg-gray-50 p-6 text-black">
+      <div className="bg-white shadow-xl rounded-2xl p-8 w-full max-w-md space-y-4">
+        <h1 className="text-2xl font-bold text-center text-gray-900">
+          Booking Confirmation
+        </h1>
 
-        <div className="space-y-2">
+        <div className="space-y-2 text-sm">
           <p>
-            <strong>Booking ID:</strong> {state.id}
+            <strong>ID:</strong> {booking.id}
           </p>
           <p>
-            <strong>Location:</strong>{" "}
-            {state.location ||
-              state.name ||
-              state.parkingName ||
-              "Not Available"}
+            <strong>Parking:</strong> {booking.name}
           </p>
           <p>
-            <strong>Address:</strong> {state.address}
+            <strong>Address:</strong> {booking.address}
           </p>
           <p>
-            <strong>Date:</strong> {state.date}
+            <strong>Date:</strong> {booking.date}
           </p>
           <p>
-            <strong>Time:</strong> {state.time}
+            <strong>Time:</strong> {booking.time}
           </p>
           <p>
-            <strong>Price:</strong> {state.price}
+            <strong>Price:</strong> {booking.price}
           </p>
           <p>
             <strong>Status:</strong>{" "}
-            <span className="text-green-600 font-semibold">{state.status}</span>
+            <span className="text-green-600 font-semibold">
+              {booking.status}
+            </span>
           </p>
         </div>
 
-        {/* QR ONLY FOR ACTIVE BOOKINGS */}
-        {state.status === "Active" && (
-          <div className="flex justify-center mt-6">
-            <QRCode value={JSON.stringify(state)} size={180} />
+        {/* Show QR only if Active */}
+        {booking.status === "Active" && (
+          <div className="mt-6 text-center">
+            <div className="w-40 h-40 mx-auto bg-gray-200 flex items-center justify-center rounded-lg">
+              QR CODE
+            </div>
+            <p className="text-xs text-gray-500 mt-2">
+              Show this QR at parking entry
+            </p>
           </div>
         )}
 
-        <p className="text-sm text-gray-500 text-center">
-          Show this QR code at the parking entry gate.
-        </p>
+        <button
+          onClick={() => navigate(-1)}
+          className="w-full mt-6 
+  bg-gradient-to-r from-emerald-500 to-teal-600
+  text-white font-semibold text-lg
+  py-3
+  rounded-2xl
+  shadow-lg
+  hover:shadow-xl
+  hover:scale-[1.02]
+  active:scale-95
+  transition-all duration-300"
+        >
+          Back
+        </button>
       </div>
     </div>
   );

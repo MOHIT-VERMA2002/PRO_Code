@@ -17,7 +17,6 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex">
-
       {/* LEFT IMAGE */}
       <div className="hidden lg:block lg:w-[62%] relative overflow-hidden">
         <div className="absolute inset-0">
@@ -52,9 +51,7 @@ const Login = () => {
       {/* RIGHT FORM */}
       <div className="w-full lg:w-[38%] flex items-center justify-center p-6 sm:p-8 bg-gradient-to-br from-gray-50 to-white">
         <div className="w-full max-w-md">
-
           <div className="bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl p-8 sm:p-10 border border-gray-100">
-
             <h2 className="text-3xl font-bold text-gray-900 mb-2">
               Sign in to Your Account
             </h2>
@@ -84,7 +81,6 @@ const Login = () => {
             </div>
 
             <form onSubmit={handleLogin} className="space-y-5">
-
               {/* EMAIL */}
               <div>
                 <label className="text-sm font-medium text-gray-700">
@@ -156,9 +152,7 @@ const Login = () => {
                   Create an Account
                 </Link>
               </p>
-
             </form>
-
           </div>
         </div>
       </div>

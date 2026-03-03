@@ -13,22 +13,19 @@ const Features = () => {
   const features = [
     {
       title: "Real-time Slot Availability",
-      description:
-        "Check available parking slots instantly on live maps.",
+      description: "Check available parking slots instantly on live maps.",
       icon: <FaMapMarkedAlt className="text-blue-600 text-3xl" />,
       path: "/book-parking",
     },
     {
       title: "Smart Booking",
-      description:
-        "Book parking in advance with hourly or monthly plans.",
+      description: "Book parking in advance with hourly or monthly plans.",
       icon: <FaCalendarCheck className="text-green-600 text-3xl" />,
       path: "/book-parking",
     },
     {
       title: "Secure QR Entry",
-      description:
-        "Hassle-free entry using secure QR code verification.",
+      description: "Hassle-free entry using secure QR code verification.",
       icon: <FaQrcode className="text-purple-600 text-3xl" />,
       path: "/my-booking",
     },
@@ -41,50 +38,48 @@ const Features = () => {
     },
     {
       title: "Digital Payments",
-      description:
-        "Fast and secure payments using UPI, cards, or wallets.",
+      description: "Fast and secure payments using UPI, cards, or wallets.",
       icon: <FaCreditCard className="text-red-600 text-3xl" />,
       path: "/payment-history",
     },
   ];
 
   return (
-    <div className="pb-24">
-      <div
-        className="max-w-6xl mx-auto bg-white/95 backdrop-blur-md 
-                   rounded-2xl p-10 shadow-xl"
-      >
+    <div className="w-full min-h-screen bg-gray-50 pb-24">
+      {/* FULL WIDTH CONTENT */}
+      <div className="w-full px-6 md:px-12 lg:px-20 py-12">
         {/* HEADER */}
-        <div className="mb-10 text-center">
-          <h1 className="text-4xl font-bold text-gray-900">
+        <div className="mb-14 text-center">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900">
             ParkEase Features
           </h1>
-          <p className="text-gray-600 mt-3">
+          <p className="text-gray-600 mt-4 text-lg">
             Smart solutions designed to simplify your parking experience.
           </p>
         </div>
 
-        {/* FEATURE CARDS */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* FEATURE GRID */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
           {features.map((feature, index) => (
             <div
               key={index}
               onClick={() => navigate(feature.path)}
-              className="cursor-pointer bg-white border rounded-xl p-6 
-                         shadow-md hover:shadow-xl 
-                         transition transform hover:-translate-y-1"
+              className="cursor-pointer bg-white border rounded-xl p-8 
+                         shadow-sm hover:shadow-xl 
+                         transition duration-300 
+                         transform hover:-translate-y-2"
             >
-              <div className="mb-4">{feature.icon}</div>
+              <div className="mb-5">{feature.icon}</div>
 
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">
                 {feature.title}
               </h3>
 
-              <p className="text-gray-600 text-sm">
+              <p className="text-gray-600 text-sm leading-relaxed">
                 {feature.description}
               </p>
 
-              <div className="mt-4 text-blue-600 font-medium text-sm">
+              <div className="mt-6 text-blue-600 font-medium text-sm">
                 Explore →
               </div>
             </div>

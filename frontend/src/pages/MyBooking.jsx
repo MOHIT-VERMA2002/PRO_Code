@@ -117,15 +117,14 @@ const MyBooking = () => {
   const [bookings, setBookings] = useState(initialBookings);
 
   return (
-    <div className="pb-24">
-      <div className="bg-white/95 rounded-2xl p-8 shadow-xl space-y-6">
-
-        <h1 className="text-3xl font-bold text-gray-900">My Bookings</h1>
+    <div className="min-h-[calc(100vh-80px)]">
+      <div className="bg-white/95 rounded-2xl p-6 shadow-xl space-y-4">
+        <h1 className="text-2xl font-bold text-gray-900">My Bookings</h1>
 
         {bookings.map((b) => (
           <div
             key={b.id}
-            className="border rounded-xl p-5 flex flex-col md:flex-row md:justify-between gap-4"
+            className="border rounded-xl p-4 flex flex-col md:flex-row md:justify-between gap-3"
           >
             {/* DETAILS */}
             <div>
@@ -138,14 +137,14 @@ const MyBooking = () => {
             </div>
 
             {/* ACTIONS */}
-            <div className="flex items-center gap-3 flex-wrap">
+            <div className="flex items-center gap-2 flex-wrap">
               <span
-                className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                className={`px-3 py-1 rounded-full text-xs font-semibold ${
                   b.status === "Active"
                     ? "bg-green-100 text-green-700"
                     : b.status === "Completed"
-                    ? "bg-blue-100 text-blue-700"
-                    : "bg-red-100 text-red-700"
+                      ? "bg-blue-100 text-blue-700"
+                      : "bg-red-100 text-red-700"
                 }`}
               >
                 {b.status}
@@ -163,8 +162,8 @@ const MyBooking = () => {
                   onClick={() =>
                     setBookings((prev) =>
                       prev.map((x) =>
-                        x.id === b.id ? { ...x, status: "Cancelled" } : x
-                      )
+                        x.id === b.id ? { ...x, status: "Cancelled" } : x,
+                      ),
                     )
                   }
                   className="px-4 py-2 bg-red-600 text-white rounded-lg text-sm hover:bg-red-700"

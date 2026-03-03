@@ -3,6 +3,11 @@
 @import "shadcn/tailwind.css";
 
 @custom-variant dark (&:is(.dark *));
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
 
 @theme inline {
     --radius-sm: calc(var(--radius) - 4px);

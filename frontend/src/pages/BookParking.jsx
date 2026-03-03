@@ -1,8 +1,15 @@
-
 import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import { Search, MapPin, ChevronDown, ChevronUp, X, Calendar, Clock } from "lucide-react";
+import {
+  Search,
+  MapPin,
+  ChevronDown,
+  ChevronUp,
+  X,
+  Calendar,
+  Clock,
+} from "lucide-react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { ZoomControl } from "react-leaflet";
@@ -18,7 +25,7 @@ L.Icon.Default.mergeOptions({
 
 const createPriceIcon = (price) => {
   return L.divIcon({
-   html: `
+    html: `
       <div style="display:flex; flex-direction:column; align-items:center;">
         
         <!-- Bigger Green Car Box -->
@@ -74,7 +81,7 @@ const parkingData = [
     dayRate: 180,
     earlyBirdRate: 150,
     weekendRate: 200,
-    position: [21.1466, 79.0882]
+    position: [21.1466, 79.0882],
   },
   {
     id: 2,
@@ -85,7 +92,7 @@ const parkingData = [
     dayRate: 200,
     earlyBirdRate: 160,
     weekendRate: 220,
-    position: [21.1389, 79.0712]
+    position: [21.1389, 79.0712],
   },
   {
     id: 3,
@@ -96,7 +103,7 @@ const parkingData = [
     dayRate: 240,
     earlyBirdRate: 200,
     weekendRate: 260,
-    position: [21.1255, 79.0925]
+    position: [21.1255, 79.0925],
   },
   {
     id: 4,
@@ -107,7 +114,7 @@ const parkingData = [
     dayRate: 150,
     earlyBirdRate: 120,
     weekendRate: 170,
-    position: [21.1070, 79.0450]
+    position: [21.107, 79.045],
   },
   {
     id: 5,
@@ -118,7 +125,7 @@ const parkingData = [
     dayRate: 270,
     earlyBirdRate: 220,
     weekendRate: 290,
-    position: [21.1594, 79.0869]
+    position: [21.1594, 79.0869],
   },
   {
     id: 6,
@@ -129,7 +136,7 @@ const parkingData = [
     dayRate: 180,
     earlyBirdRate: 150,
     weekendRate: 200,
-    position: [21.1529, 79.0820]
+    position: [21.1529, 79.082],
   },
 ];
 
@@ -144,7 +151,7 @@ const BookParking = () => {
   const filteredParking = useMemo(() => {
     if (!search.trim()) return parkingData;
     return parkingData.filter((p) =>
-      `${p.name} ${p.address}`.toLowerCase().includes(search.toLowerCase())
+      `${p.name} ${p.address}`.toLowerCase().includes(search.toLowerCase()),
     );
   }, [search]);
 
@@ -166,8 +173,8 @@ const BookParking = () => {
     navigate("/payment", {
       state: {
         booking: selectedBooking,
-        mode: mode
-      }
+        mode: mode,
+      },
     });
   };
 
@@ -186,7 +193,10 @@ const BookParking = () => {
           <div className="border-3 border-blue-400 rounded-xl shadow-md">
             <div className="bg-white rounded-lg flex items-stretch overflow-hidden">
               <div className="relative flex-1">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+                <Search
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+                  size={20}
+                />
                 <input
                   type="text"
                   placeholder="Search address"
@@ -231,7 +241,6 @@ const BookParking = () => {
           zoom={13}
           className="h-full w-full"
           zoomControl={false}
-          
         >
           <ZoomControl position="bottomleft" />
           <TileLayer
@@ -298,7 +307,10 @@ const BookParking = () => {
                   <div className="flex items-center justify-between mb-3">
                     <div>
                       <p className="text-xl font-bold text-gray-900">
-                        ₹{getCurrentPrice(parking)}<span className="text-sm font-normal text-gray-500">{getPriceLabel()}</span>
+                        ₹{getCurrentPrice(parking)}
+                        <span className="text-sm font-normal text-gray-500">
+                          {getPriceLabel()}
+                        </span>
                       </p>
                     </div>
                   </div>
@@ -309,36 +321,56 @@ const BookParking = () => {
                         <>
                           <div className="flex justify-between text-sm">
                             <span className="text-gray-600">Day rate:</span>
-                            <span className="font-semibold text-gray-900">₹{parking.dayRate}</span>
+                            <span className="font-semibold text-gray-900">
+                              ₹{parking.dayRate}
+                            </span>
                           </div>
                           <div className="flex justify-between text-sm">
-                            <span className="text-gray-600">Early bird rate:</span>
-                            <span className="font-semibold text-gray-900">₹{parking.earlyBirdRate}</span>
+                            <span className="text-gray-600">
+                              Early bird rate:
+                            </span>
+                            <span className="font-semibold text-gray-900">
+                              ₹{parking.earlyBirdRate}
+                            </span>
                           </div>
                           <div className="flex justify-between text-sm">
                             <span className="text-gray-600">Weekend rate:</span>
-                            <span className="font-semibold text-gray-900">₹{parking.weekendRate}/hour</span>
+                            <span className="font-semibold text-gray-900">
+                              ₹{parking.weekendRate}/hour
+                            </span>
                           </div>
                         </>
                       ) : (
                         <>
                           <div className="flex justify-between text-sm">
                             <span className="text-gray-600">Monthly rate:</span>
-                            <span className="font-semibold text-gray-900">₹{parking.monthly}</span>
+                            <span className="font-semibold text-gray-900">
+                              ₹{parking.monthly}
+                            </span>
                           </div>
                           <div className="flex justify-between text-sm">
-                            <span className="text-gray-600">Daily equivalent:</span>
-                            <span className="font-semibold text-gray-900">₹{Math.round(parking.monthly / 30)}/day</span>
+                            <span className="text-gray-600">
+                              Daily equivalent:
+                            </span>
+                            <span className="font-semibold text-gray-900">
+                              ₹{Math.round(parking.monthly / 30)}/day
+                            </span>
                           </div>
                           <div className="flex justify-between text-sm">
-                            <span className="text-gray-600">Billing cycle:</span>
-                            <span className="font-semibold text-gray-900">Monthly (30 days)</span>
+                            <span className="text-gray-600">
+                              Billing cycle:
+                            </span>
+                            <span className="font-semibold text-gray-900">
+                              Monthly (30 days)
+                            </span>
                           </div>
                         </>
                       )}
                       <div className="flex justify-between text-sm">
                         <span className="text-gray-600">Location:</span>
-                        <span className="font-semibold text-gray-900">Nagpur</span>
+                        <span className="font-semibold text-gray-900">
+                          Nagpur
+                        </span>
                       </div>
                       <div className="mt-3 pt-3 border-t border-gray-200">
                         <p className="text-xs text-gray-500">
@@ -382,146 +414,126 @@ const BookParking = () => {
         </div>
       </div>
 
-{showModal && selectedBooking && (
-  <div className="fixed inset-0 z-[3000] flex center justify-center bg-black/60 backdrop-blur-sm p-10 overflow-y-auto flex-1">
-    
-    {/* Modal Box */}
-    <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] flex flex-col animate-fadeIn">
-      
-      {/* Header */}
-      <div className="p-6 border-b border-gray-200 flex items-center justify-between flex-shrink-0">
-        <h2 className="text-2xl font-bold text-gray-900">
-          Confirm Booking
-        </h2>
-        <button
-          onClick={handleCloseModal}
-          className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-        >
-          <X size={24} className="text-gray-500" />
-        </button>
-      </div>
-
-      {/* Body */}
-      <div className="p-6 space-y-6 overflow-y-auto flex-1">
-
-        {/* Parking Info */}
-        <div className="bg-gray-50 rounded-xl p-4">
-          <div className="flex items-start gap-3">
-            <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-              <MapPin className="text-green-600" size={22} />
+      {showModal && selectedBooking && (
+        <div className="fixed inset-0 z-[3000] flex center justify-center bg-black/60 backdrop-blur-sm p-10 overflow-y-auto flex-1">
+          {/* Modal Box */}
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] flex flex-col animate-fadeIn">
+            {/* Header */}
+            <div className="p-6 border-b border-gray-200 flex items-center justify-between flex-shrink-0">
+              <h2 className="text-2xl font-bold text-gray-900">
+                Confirm Booking
+              </h2>
+              <button
+                onClick={handleCloseModal}
+                className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              >
+                <X size={24} className="text-gray-500" />
+              </button>
             </div>
-            <div>
-              <h3 className="font-bold text-gray-900 text-lg">
-                {selectedBooking.name}
-              </h3>
-              <p className="text-sm text-gray-600">
-                {selectedBooking.address}
-              </p>
+
+            {/* Body */}
+            <div className="p-6 space-y-6 overflow-y-auto flex-1">
+              {/* Parking Info */}
+              <div className="bg-gray-50 rounded-xl p-4">
+                <div className="flex items-start gap-3">
+                  <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                    <MapPin className="text-green-600" size={22} />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-gray-900 text-lg">
+                      {selectedBooking.name}
+                    </h3>
+                    <p className="text-sm text-gray-600">
+                      {selectedBooking.address}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Booking Summary */}
+              <div className="space-y-4">
+                {/* Selected Plan */}
+                <div className="flex justify-between items-center py-3 border-b border-gray-200">
+                  <span className="text-gray-600 font-medium">
+                    Selected Plan
+                  </span>
+                  <span
+                    className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                      mode === "HOURLY"
+                        ? "bg-green-100 text-green-700"
+                        : "bg-blue-100 text-blue-700"
+                    }`}
+                  >
+                    {mode === "HOURLY" ? "Hourly Parking" : "Monthly Parking"}
+                  </span>
+                </div>
+
+                {/* Price */}
+                <div className="flex justify-between items-center py-3 border-b border-gray-200">
+                  <span className="text-gray-600 font-medium">Price</span>
+                  <span className="text-2xl font-bold text-gray-900">
+                    ₹{getCurrentPrice(selectedBooking)}
+                    <span className="text-sm font-normal text-gray-500">
+                      {getPriceLabel()}
+                    </span>
+                  </span>
+                </div>
+
+                {/* Name */}
+                <div className="flex justify-between items-center py-3 border-b border-gray-200">
+                  <span className="text-gray-600 font-medium">Name</span>
+                  <span className="font-semibold text-gray-900">
+                    Rahul Singh
+                  </span>
+                </div>
+
+                {/* Phone */}
+                <div className="flex justify-between items-center py-3 border-b border-gray-200">
+                  <span className="text-gray-600 font-medium">Phone</span>
+                  <span className="font-semibold text-gray-900">
+                    8888756789
+                  </span>
+                </div>
+
+                {/* Vehicle */}
+                <div className="flex justify-between items-center py-3 border-b border-gray-200">
+                  <span className="text-gray-600 font-medium">Vehicle No</span>
+                  <span className="font-semibold text-gray-900">
+                    MH 31 AB 1234
+                  </span>
+                </div>
+
+                {/* Address */}
+                <div className="flex justify-between items-start py-3">
+                  <span className="text-gray-600 font-medium">Address</span>
+                  <span className="font-semibold text-gray-900 text-right max-w-[60%]">
+                    Nagpur, Maharashtra
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Footer Buttons */}
+            <div className="p-6 bg-gray-50 rounded-b-2xl flex gap-3 flex-shrink-0">
+              <button
+                onClick={handleCloseModal}
+                className="flex-1 px-6 py-3 border-2 border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-100 transition-all"
+              >
+                Cancel
+              </button>
+
+              <button
+                onClick={handleContinueToPayment}
+                className="flex-1 px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold rounded-lg hover:shadow-lg transition-all"
+              >
+                Continue to Payment
+              </button>
             </div>
           </div>
         </div>
-
-        {/* Booking Summary */}
-        <div className="space-y-4">
-
-          {/* Selected Plan */}
-          <div className="flex justify-between items-center py-3 border-b border-gray-200">
-            <span className="text-gray-600 font-medium">
-              Selected Plan
-            </span>
-            <span
-              className={`px-3 py-1 rounded-full text-sm font-semibold ${
-                mode === "HOURLY"
-                  ? "bg-green-100 text-green-700"
-                  : "bg-blue-100 text-blue-700"
-              }`}
-            >
-              {mode === "HOURLY"
-                ? "Hourly Parking"
-                : "Monthly Parking"}
-            </span>
-          </div>
-
-          {/* Price */}
-          <div className="flex justify-between items-center py-3 border-b border-gray-200">
-            <span className="text-gray-600 font-medium">
-              Price
-            </span>
-            <span className="text-2xl font-bold text-gray-900">
-              ₹{getCurrentPrice(selectedBooking)}
-              <span className="text-sm font-normal text-gray-500">
-                {getPriceLabel()}
-              </span>
-            </span>
-          </div>
-
-          {/* Name */}
-          <div className="flex justify-between items-center py-3 border-b border-gray-200">
-            <span className="text-gray-600 font-medium">
-              Name
-            </span>
-            <span className="font-semibold text-gray-900">
-              Rahul Singh
-            </span>
-          </div>
-
-          {/* Phone */}
-          <div className="flex justify-between items-center py-3 border-b border-gray-200">
-            <span className="text-gray-600 font-medium">
-              Phone
-            </span>
-            <span className="font-semibold text-gray-900">
-              8888756789
-            </span>
-          </div>
-
-          {/* Vehicle */}
-          <div className="flex justify-between items-center py-3 border-b border-gray-200">
-            <span className="text-gray-600 font-medium">
-              Vehicle No
-            </span>
-            <span className="font-semibold text-gray-900">
-              MH 31 AB 1234
-            </span>
-          </div>
-
-          {/* Address */}
-          <div className="flex justify-between items-start py-3">
-            <span className="text-gray-600 font-medium">
-              Address
-            </span>
-            <span className="font-semibold text-gray-900 text-right max-w-[60%]">
-              Nagpur, Maharashtra
-            </span>
-          </div>
-
-        </div>
-      </div>
-
-      {/* Footer Buttons */}
-      <div className="p-6 bg-gray-50 rounded-b-2xl flex gap-3 flex-shrink-0">
-        <button
-          onClick={handleCloseModal}
-          className="flex-1 px-6 py-3 border-2 border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-100 transition-all"
-        >
-          Cancel
-        </button>
-
-        <button
-          onClick={handleContinueToPayment}
-          className="flex-1 px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold rounded-lg hover:shadow-lg transition-all"
-        >
-          Continue to Payment
-        </button>
-      </div>
+      )}
     </div>
-  </div>
-  
-)}
-    </div>
-    
   );
 };
 
 export default BookParking;
-

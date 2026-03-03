@@ -24,7 +24,7 @@ const Payment = () => {
 
   if (!booking) {
     return (
-      <div className="p-10 text-center text-gray-700">
+      <div className="min-h-screen flex items-center justify-center text-gray-700">
         No booking details found.
       </div>
     );
@@ -40,8 +40,6 @@ const Payment = () => {
       alert("Please select a payment method");
       return;
     }
-
-    // UI-only success
     setPaymentSuccess(true);
   };
 
@@ -50,9 +48,8 @@ const Payment = () => {
      ======================= */
   if (paymentSuccess) {
     return (
-      <div className="min-h-[70vh] flex items-center justify-center">
-        <div className="bg-white rounded-2xl p-10 shadow-xl text-center space-y-6">
-
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 px-6">
+        <div className="w-full max-w-2xl bg-white rounded-2xl p-10 shadow-xl text-center space-y-6">
           <FaCheckCircle className="text-green-600 text-6xl mx-auto" />
 
           <h2 className="text-2xl font-bold text-gray-900">
@@ -77,12 +74,10 @@ const Payment = () => {
                 },
               })
             }
-            className="mt-4 px-6 py-3 bg-green-600 hover:bg-green-700 
-                       text-white rounded-lg"
+            className="mt-4 px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg"
           >
             View Booking Details
           </button>
-
         </div>
       </div>
     );
@@ -92,10 +87,8 @@ const Payment = () => {
      PAYMENT FORM
      ======================= */
   return (
-    <div className="pb-24">
-      <div className="max-w-3xl mx-auto bg-white/95 backdrop-blur-md 
-                      rounded-2xl p-8 shadow-xl space-y-8">
-
+    <div className="min-h-screen w-full bg-gray-50 px-6 py-10">
+      <div className="w-full bg-white rounded-none p-8 shadow-none space-y-8">
         {/* HEADER */}
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Payment</h1>
@@ -106,17 +99,21 @@ const Payment = () => {
 
         {/* BOOKING DETAILS */}
         <div className="border rounded-xl p-6 text-gray-700 space-y-2">
-          <p><strong>Location:</strong> {booking.name}</p>
-          <p><strong>Address:</strong> {booking.address}</p>
-          <p><strong>Plan:</strong> {mode === "HOURLY" ? "Hourly" : "Monthly"}</p>
+          <p>
+            <strong>Location:</strong> {booking.name}
+          </p>
+          <p>
+            <strong>Address:</strong> {booking.address}
+          </p>
+          <p>
+            <strong>Plan:</strong> {mode === "HOURLY" ? "Hourly" : "Monthly"}
+          </p>
           <p className="text-green-600 font-semibold text-lg">{price}</p>
         </div>
 
         {/* PAYMENT METHODS */}
         <div className="space-y-4">
-          <h2 className="font-semibold text-gray-900">
-            Select Payment Method
-          </h2>
+          <h2 className="font-semibold text-gray-900">Select Payment Method</h2>
 
           {/* UPI */}
           <label className="block border rounded-lg p-4 cursor-pointer text-black">
@@ -152,35 +149,27 @@ const Payment = () => {
             <div className="grid grid-cols-2 gap-4 text-black">
               <input
                 placeholder="Card Number"
-                className="border rounded-lg px-4 py-2 col-span-2 text-black"
+                className="border rounded-lg px-4 py-2 col-span-2"
                 value={card.number}
-                onChange={(e) =>
-                  setCard({ ...card, number: e.target.value })
-                }
+                onChange={(e) => setCard({ ...card, number: e.target.value })}
               />
               <input
                 placeholder="Name on Card"
-                className="border rounded-lg px-4 py-2 col-span-2 text-black"
+                className="border rounded-lg px-4 py-2 col-span-2"
                 value={card.name}
-                onChange={(e) =>
-                  setCard({ ...card, name: e.target.value })
-                }
+                onChange={(e) => setCard({ ...card, name: e.target.value })}
               />
               <input
                 placeholder="MM/YY"
-                className="border rounded-lg px-4 py-2 text-black"
+                className="border rounded-lg px-4 py-2"
                 value={card.expiry}
-                onChange={(e) =>
-                  setCard({ ...card, expiry: e.target.value })
-                }
+                onChange={(e) => setCard({ ...card, expiry: e.target.value })}
               />
               <input
                 placeholder="CVV"
-                className="border rounded-lg px-4 py-2 text-black"
+                className="border rounded-lg px-4 py-2"
                 value={card.cvv}
-                onChange={(e) =>
-                  setCard({ ...card, cvv: e.target.value })
-                }
+                onChange={(e) => setCard({ ...card, cvv: e.target.value })}
               />
             </div>
           )}
@@ -199,21 +188,21 @@ const Payment = () => {
             <div className="space-y-2 text-black">
               <button
                 onClick={() => setWallet("Paytm")}
-                className="w-full flex items-center gap-3 border rounded-lg px-4 py-2 text-black"
+                className="w-full flex items-center gap-3 border rounded-lg px-4 py-2"
               >
                 <SiPaytm className="text-blue-600 text-xl" /> Paytm
               </button>
 
               <button
                 onClick={() => setWallet("PhonePe")}
-                className="w-full flex items-center gap-3 border rounded-lg px-4 py-2 text-black"
+                className="w-full flex items-center gap-3 border rounded-lg px-4 py-2"
               >
                 <SiPhonepe className="text-purple-600 text-xl" /> PhonePe
               </button>
 
               <button
                 onClick={() => setWallet("Amazon Pay")}
-                className="w-full flex items-center gap-3 border rounded-lg px-4 py-2 text-black"
+                className="w-full flex items-center gap-3 border rounded-lg px-4 py-2"
               >
                 <SiAmazon className="text-yellow-600 text-xl" /> Amazon Pay
               </button>
@@ -222,24 +211,21 @@ const Payment = () => {
         </div>
 
         {/* ACTIONS */}
-        <div className="flex gap-4 text-black">
+        <div className="flex gap-4">
           <button
             onClick={() => navigate(-1)}
-            className="flex-1 bg-gray-100 hover:bg-gray-200 
-                       text-gray-700 py-2 rounded-lg"
+            className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 rounded-lg"
           >
             Back
           </button>
 
           <button
             onClick={handlePay}
-            className="flex-1 bg-green-600 hover:bg-green-700 
-                       text-white py-2 rounded-lg"
+            className="flex-1 bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg"
           >
             Pay & Confirm
           </button>
         </div>
-
       </div>
     </div>
   );
