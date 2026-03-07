@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Search, Mail, HelpCircle } from "lucide-react";
 import { Accordion } from "../components/ui/Accordion";
 
@@ -116,6 +117,7 @@ const faqData = {
 };
 
 export default function FAQ() {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredData, setFilteredData] = useState(faqData);
 
@@ -204,9 +206,12 @@ export default function FAQ() {
             Our dedicated support team is ready to help you. Reach out to us and
             we'll get back to you within 2 hours.
           </p>
-          <button className="px-8 py-3 bg-white text-[#0F172A] font-semibold rounded-lg hover:bg-gray-100 transition shadow-lg">
-            Contact Support
-          </button>
+          <button
+  onClick={() => navigate("/contact")}
+  className="px-8 py-3 bg-white text-[#0F172A] font-semibold rounded-lg hover:bg-gray-100 transition shadow-lg"
+>
+  Contact Support
+</button>
         </div>
       </div>
     </div>
