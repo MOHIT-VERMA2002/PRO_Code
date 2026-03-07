@@ -40,31 +40,22 @@ const reviews = [
 const TopReviews = () => {
   return (
     <section className="bg-white py-16 overflow-hidden text-black">
-
       {/* Title */}
       <div className="text-center mb-10">
-        <h2 className="text-3xl font-bold text-green-700">
-          What Users Say
-        </h2>
-        <p className="text-gray-600 mt-2">
-          Real feedback from ParkEase users
-        </p>
+        <h2 className="text-3xl font-bold text-green-700">What Users Say</h2>
+        <p className="text-gray-600 mt-2">Real feedback from ParkEase users</p>
       </div>
 
       {/* Scrolling container */}
       <div className="relative w-full overflow-hidden">
-
         <div className="flex gap-6 animate-scroll">
-
           {[...reviews, ...reviews].map((review, index) => (
             <div
               key={index}
               className="min-w-[320px] bg-gray-50 shadow-md rounded-xl p-6 hover:shadow-lg transition"
             >
-
               {/* Profile Section */}
               <div className="flex items-center gap-4 mb-3">
-
                 <img
                   src={review.image}
                   alt={review.name}
@@ -72,29 +63,22 @@ const TopReviews = () => {
                 />
 
                 <div>
-                  <h3 className="font-semibold text-black">
-                    {review.name}
-                  </h3>
+                  <h3 className="font-semibold text-black">{review.name}</h3>
 
                   <p className="text-green-600 text-sm">
                     {"⭐".repeat(review.rating)}
                   </p>
                 </div>
-
               </div>
 
               {/* Comment */}
               <p className="text-gray-700 mt-2 leading-relaxed">
                 {review.comment}
               </p>
-
             </div>
           ))}
-
         </div>
-
       </div>
-
     </section>
   );
 };

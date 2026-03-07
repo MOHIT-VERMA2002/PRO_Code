@@ -38,7 +38,7 @@ const HeroSlider = () => {
       subtitle: '24/7 secure parking at premium locations across the city',
       buttons: [
         { text: 'Book Now', primary: true, action: () => navigate('/book-parking') },
-        { text: 'Explore Features', primary: false, action: () => navigate('/why-choose') },
+        { text: 'Explore Features', primary: false, action: () => navigate('/features') },
       ],
     },
   ];
