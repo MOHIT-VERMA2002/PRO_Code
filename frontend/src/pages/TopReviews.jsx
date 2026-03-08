@@ -88,43 +88,41 @@ const TopReviews = () => {
           <div className="w-16 h-1 bg-green-500 mx-auto mt-4"></div>
         </div>
 
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="w-full px-8">
           <Swiper
             modules={[Autoplay, Pagination]}
-            slidesPerView={3}
-            spaceBetween={40}
+            slidesPerView={4}
+            spaceBetween={25}
             loop={true}
+            speed={900}
             autoplay={{
               delay: 2500,
               disableOnInteraction: false,
             }}
-            speed={900}
             pagination={{
               el: ".custom-pagination",
               clickable: true,
             }}
             breakpoints={{
               0: { slidesPerView: 1 },
-              768: { slidesPerView: 2 },
-              1024: { slidesPerView: 3 },
+              640: { slidesPerView: 2 },
+              900: { slidesPerView: 3 },
+              1200: { slidesPerView: 4 },
             }}
           >
             {reviews.map((review, index) => (
-              <SwiperSlide key={index}>
+              <SwiperSlide key={index} className="flex justify-center">
                 <div
                   className="bg-white text-gray-700 rounded-xl shadow-lg
-                  w-[360px] h-[300px] p-8 text-center flex flex-col
-                  items-center justify-center mx-auto"
+                  w-full h-[300px] p-6 text-center flex flex-col
+                  items-center justify-center"
                 >
-                  {/* Quote */}
-                  <div className="text-green-500 text-3xl mb-3">“</div>
+                  <div className="text-green-500 text-4xl mb-3">“</div>
 
-                  {/* Comment */}
-                  <p className="text-gray-600 text-sm leading-relaxed px-4 mb-4">
+                  <p className="text-gray-600 text-sm leading-relaxed mb-4 px-2">
                     {review.comment}
                   </p>
 
-                  {/* Name */}
                   <h3 className="font-semibold text-gray-900">
                     {review.name}
                   </h3>
@@ -133,7 +131,6 @@ const TopReviews = () => {
                     {review.city}
                   </p>
 
-                  {/* Profile Image */}
                   <img
                     src={review.image}
                     alt={review.name}
@@ -145,7 +142,7 @@ const TopReviews = () => {
           </Swiper>
 
           {/* Pagination dots */}
-          <div className="custom-pagination mt-12 flex justify-center"></div>
+          <div className="custom-pagination mt-10 flex justify-center"></div>
         </div>
       </div>
     </section>

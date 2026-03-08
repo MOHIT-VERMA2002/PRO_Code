@@ -22,7 +22,7 @@ const Navbar = () => {
     { name: "Services", path: "/services" }, 
     { name: "About Us", path: "/about" },
     { name: "Parking Options", path: "/parking-rates" },
-    { name: "Location", path: "/parking-status" },
+    { name: "Book Parking", path: "/book-parking" },
   ];
 
   const handleLogout = () => {
