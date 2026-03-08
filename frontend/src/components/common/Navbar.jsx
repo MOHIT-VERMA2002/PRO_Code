@@ -1,11 +1,6 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
-import {
-  FaUserCircle,
-  FaChevronDown,
-  FaBars,
-  FaTimes,
-} from "react-icons/fa";
+import { FaUserCircle, FaChevronDown, FaBars, FaTimes } from "react-icons/fa";
 
 const Navbar = () => {
   const isLoggedIn = true;
@@ -19,7 +14,7 @@ const Navbar = () => {
   const navItems = [
     { name: "Home", path: "/" },
     { name: "Features", path: "/features" },
-    { name: "Services", path: "/services" }, 
+    { name: "Services", path: "/services" },
     { name: "About Us", path: "/about" },
     { name: "Parking Options", path: "/parking-rates" },
     { name: "Book Parking", path: "/book-parking" },
@@ -37,41 +32,35 @@ const Navbar = () => {
         setOpen(false);
       }
     };
+
     document.addEventListener("mousedown", handleClickOutside);
-    return () =>
-      document.removeEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-black/40">
-      <div className="relative max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-
-        <div className="md:hidden w-10"></div>
-
+    <nav className="fixed top-0 left-0 w-full z-50 backdrop-blur-lg bg-black/40 border-b border-white/10">
+      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         {/* LOGO */}
-        <Link
-          to="/"
-          className="absolute left-1/2 -translate-x-1/2 md:static md:translate-x-0
-                     flex items-center gap-2 text-white"
-        >
+        <Link to="/" className="flex items-center gap-2 text-white">
           <div className="grid grid-cols-2 gap-1">
             <span className="w-3 h-3 bg-red-500 rounded-full"></span>
             <span className="w-3 h-3 bg-yellow-400 rounded-full"></span>
             <span className="w-3 h-3 bg-blue-500 rounded-full"></span>
             <span className="w-3 h-3 bg-green-500 rounded-full"></span>
           </div>
-          <span className="text-xl font-bold">ParkEase</span>
+
+          <span className="text-xl font-bold text-white">ParkEase</span>
         </Link>
 
-        {/* DESKTOP NAV */}
+        {/* DESKTOP MENU */}
         <ul className="hidden md:flex gap-8 text-white font-medium">
           {navItems.map((item) => (
             <li key={item.name}>
               <NavLink
                 to={item.path}
                 className={({ isActive }) =>
-                  `hover:underline transition ${
-                    isActive ? "underline" : ""
+                  `relative hover:text-green-400 transition ${
+                    isActive ? "text-green-400" : ""
                   }`
                 }
               >
@@ -83,16 +72,18 @@ const Navbar = () => {
 
         {/* RIGHT SIDE */}
         <div className="flex items-center gap-4 relative" ref={dropdownRef}>
+          {/* PROFILE */}
           {isLoggedIn && (
             <button
               onClick={() => setOpen((prev) => !prev)}
-              className="hidden md:flex items-center gap-2 text-white"
+              className="hidden md:flex items-center gap-2 text-white hover:text-blue-400 transition"
             >
               <FaUserCircle size={28} />
               <FaChevronDown size={12} />
             </button>
           )}
 
+          {/* MOBILE MENU BUTTON */}
           <button
             className="md:hidden text-white"
             onClick={() => setMobileMenu((prev) => !prev)}
@@ -102,8 +93,7 @@ const Navbar = () => {
 
           {/* PROFILE DROPDOWN */}
           {open && (
-            <div className="absolute right-0 top-12 w-60 bg-white rounded-xl 
-                            shadow-lg text-gray-800 border z-50">
+            <div className="absolute right-0 top-12 w-60 bg-white rounded-xl shadow-xl text-gray-800 border overflow-hidden">
               <button
                 onClick={() => {
                   navigate("/profile");
@@ -134,7 +124,7 @@ const Navbar = () => {
                 💳 Payment History
               </button>
 
-              <div className="border-t" />
+              <div className="border-t"></div>
 
               <button
                 onClick={handleLogout}
@@ -149,13 +139,13 @@ const Navbar = () => {
 
       {/* MOBILE MENU */}
       {mobileMenu && (
-        <div className="md:hidden bg-black/90 text-white px-6 py-6 space-y-4">
+        <div className="md:hidden bg-black/95 text-white px-6 py-6 space-y-4">
           {navItems.map((item) => (
             <NavLink
               key={item.name}
               to={item.path}
               onClick={() => setMobileMenu(false)}
-              className="block text-lg border-b border-white/20 pb-2"
+              className="block text-lg border-b border-white/20 pb-2 hover:text-blue-400"
             >
               {item.name}
             </NavLink>
